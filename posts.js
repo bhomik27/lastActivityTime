@@ -11,7 +11,7 @@ let count = 0;
     return new Promise( (resolve, reject) => {
         setTimeout( () => {
             posts.push({ title: "Post" + count });
-            console.log(posts.title);
+            console.log(posts);
             console.log(`LAST ACTIVITY TIME OF USER: ${user.lastActivityTime}`);
             resolve();
         }, 3000)
