@@ -1,7 +1,7 @@
 const posts = [];
 
 const user = {
-    name: "Vishal",
+    name: "Bhomik",
     lastActivityTime: new Date
 }
 
@@ -24,8 +24,8 @@ let count = 0;
       return new Promise((resolve, reject) => {
         setTimeout( () => {
             if(posts.length > 0){
-                const blog  = posts.pop();
-                resolve(blog);
+                const post  = posts.pop();
+                resolve(post);
             } else {
                 reject("ERROR")
             }
@@ -38,7 +38,7 @@ let count = 0;
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('Updating User Last Activity Time');
-            user.lastActivityTime = Date.now();
+            user.lastActivityTime = new Date();
             resolve();
         }, 1000)
     })
@@ -49,4 +49,16 @@ let count = 0;
 console.log("Last Active time of the User:", user.lastActivityTime);
 
 
-Promise.all([createPost({title: 'Post Five', body: 'This is Post Five'}), updateLastUserActivityTime()])
+Promise.all([createPost({ title: 'Post Five', body: 'This is Post Five' }), updateLastUserActivityTime()])
+    .then(() => {
+        console.log("All promises resolved successfully.");
+        
+        return deletePost();
+    })
+    .then((deletedPost) => {
+        console.log(`Deleted post: ${deletedPost.title}`);
+        console.log("Remaining Posts:", posts);
+    })
+    .catch((error) => {
+        console.error("An error occurred:", error);
+    });
